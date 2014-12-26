@@ -159,11 +159,15 @@ JSONEditor.defaults.editors.string = JSONEditor.AbstractEditor.extend({
       }
       // HTML5 Input type
       else {
-        
         this.input = this.theme.getFormInputField(this.input_type);
         if (this.format == "date") {
-            $(this.input).datepicker( $.datepicker.regional[ "fi" ] );
+            $(this.input).datepicker( $.datepicker.regional.fi );
             $(this.input).datepicker('option' ,'dateFormat', 'yy-mm-dd');
+            $(this.input).datepicker('option', 'onSelect', function () {
+                self.is_dirty = true;
+                self.refreshValue();
+                self.onChange(true);
+            });
         } else  {
             this.input_type = this.format;
         }

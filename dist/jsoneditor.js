@@ -1906,11 +1906,16 @@ JSONEditor.defaults.editors.string = JSONEditor.AbstractEditor.extend({
       }
       // HTML5 Input type
       else {
-        
+        console.log("changed!"); 
         this.input = this.theme.getFormInputField(this.input_type);
         if (this.format == "date") {
-            $(this.input).datepicker();
+            $(this.input).datepicker( $.datepicker.regional.fi );
             $(this.input).datepicker('option' ,'dateFormat', 'yy-mm-dd');
+            $(this.input).datepicker('option', 'onSelect', function () {
+                self.is_dirty = true;
+                self.refreshValue();
+                self.onChange(true);
+            });
         } else  {
             this.input_type = this.format;
         }
@@ -2088,6 +2093,7 @@ JSONEditor.defaults.editors.string = JSONEditor.AbstractEditor.extend({
   },
   refreshValue: function() {
     this.value = this.input.value;
+    console.log("refresh value to " + this.value);
     if(typeof this.value !== "string") this.value = '';
     this.serialized = this.value;
   },

@@ -39,7 +39,7 @@
     // Divs/textareas on the page
     var $editor = document.getElementById('editor');
     
-    jsoneditor = new JSONEditor($editor,{
+    window.jsoneditor = new JSONEditor($editor,{
         schema: schema,
         startval: {},
         disable_collapse : true,
