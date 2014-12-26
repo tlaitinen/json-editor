@@ -159,8 +159,14 @@ JSONEditor.defaults.editors.string = JSONEditor.AbstractEditor.extend({
       }
       // HTML5 Input type
       else {
-        this.input_type = this.format;
+        
         this.input = this.theme.getFormInputField(this.input_type);
+        if (this.format == "date") {
+            $(this.input).datepicker( $.datepicker.regional[ "fi" ] );
+            $(this.input).datepicker('option' ,'dateFormat', 'yy-mm-dd');
+        } else  {
+            this.input_type = this.format;
+        }
       }
     }
     // Normal text input
